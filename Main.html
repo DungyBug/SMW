@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Super Mario Web</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="margin: 0; padding: 0; overflow: hidden;">
+    <div class="List">
+        <div id="Blocks" class="Type" tabindex="1">
+            Blocks
+            <br>
+            <img class="isource" src="/Images/blockw12.png" onclick="SetBlock('blockw12');">
+            <img class="isource" src="/Images/block_n0.png" onclick="SetBlock('block_n0');">
+            <img class="isource" src="/Images/block_n1.png" onclick="SetBlock('block_n1');">
+            <img class="isource" src="/Images/block_n2.png" onclick="SetBlock('block_n2');">
+            <img class="isource" src="/Images/block_n3.png" onclick="SetBlock('block_n3');">
+            <img class="isource" src="/Images/block_n4.png" onclick="SetBlock('block_n4');">
+            <img class="isource" src="/Images/block_n5.png" onclick="SetBlock('block_n5');">
+            <img class="isource" src="/Images/blockw00.png" onclick="SetBlock('blockw00');">
+            <img class="isource" src="/Images/blockw01.png" onclick="SetBlock('blockw01');">
+            <img class="isource" src="/Images/blockw02.png" onclick="SetBlock('blockw02');">
+            <img class="isource" src="/Images/blockw03.png" onclick="SetBlock('blockw03');">
+            <img class="isource" src="/Images/blockw04.png" onclick="SetBlock('blockw04');">
+            <img class="isource" src="/Images/blockw05.png" onclick="SetBlock('blockw05');">
+            <img class="isource" src="/Images/blockw06.png" onclick="SetBlock('blockw06');">
+            <img class="isource" src="/Images/blockw07.png" onclick="SetBlock('blockw07');">
+            <img class="isource" src="/Images/blockw08.png" onclick="SetBlock('blockw08');">
+            <img class="isource" src="/Images/blockw09.png" onclick="SetBlock('blockw09');">
+            <img class="isource" src="/Images/blockw10.png" onclick="SetBlock('blockw10');">
+            <img class="isource" src="/Images/blockw11.png" onclick="SetBlock('blockw11');">
+            <img class="isource" src="/Images/sblock0.png">
+            <img class="isource" src="/Images/loot_block0.png" onclick="SetBlock('loot_block');">
+            <img class="isource" src="/Images/LiquidLava0.png" onclick="SetPickable('Lava');">
+            <img class="isource" src="/Images/LiquidWater.png" onclick="SetPickable('Water');">
+        </div>
+        <div id="Pickable" class="Type" tabindex="1">
+            Pickable
+            <br>
+            <img class="isource" src="/Images/mushroom.png" onclick="SetPickable('Mushroom');">
+            <img class="isource" src="/Images/BlockMushroom.png" onclick="SetPickable('BlockMushroom');">
+            <img class="isource" style="width: 48px;" src="/Images/ncoin0.png" onclick="SetPickable('Coin');">
+            <img class="isource" style="width: 48px;" src="/Images/rcoin0.png" onclick="SetPickable('RedCoin');">
+        </div>
+        <div id="Enemies" class="Type" tabindex="1">
+            Enemies
+        </div>
+        <div class="Eraser" onclick="Current_Type = 3; Current_Block = [noimage];">
+            Eraser
+        </div>
+        <div id="Run" class="Run" tabindex="1">
+            Run
+        </div>
+        <div id="Stop" class="Stop" tabindex="1">
+            Stop
+        </div>
+    </div>
+    <canvas width="640" height="360" id="ctx"></canvas>
+    <img id="Mario0" src="/Images/mario0.png" onload="console.log('OK1')">
+    <img id="Mario1" src="/Images/mario1.png" onload="console.log('OK2')">
+    <img id="blue_coopa0" src="/Images/blue_coopa0.png" onload="console.log('OK3')">
+    <img id="blue_coopa1" src="/Images/blue_coopa1.png" onload="console.log('OK4')">
+    <img id="sleep_fish0" src="/Images/sleep_fish0.png" onload="console.log('OK5')">
+    <img id="sleep_fish1" src="/Images/sleep_fish1.png" onload="console.log('OK6')">
+    <img id="sleep_fish2" src="/Images/sleep_fish2.png" onload="console.log('OK7')">
+    <img id="sleep_fish3" src="/Images/sleep_fish3.png" onload="console.log('OK8')">
+    <img id="block_n0" src="/Images/block_n0.png" onload="console.log('OK9')">
+    <img id="block_n1" src="/Images/block_n1.png" onload="console.log('OK9')">
+    <img id="block_n2" src="/Images/block_n2.png" onload="console.log('OK9')">
+    <img id="block_n3" src="/Images/block_n3.png" onload="console.log('OK9')">
+    <img id="block_n4" src="/Images/block_n4.png" onload="console.log('OK9')">
+    <img id="block_n5" src="/Images/block_n5.png" onload="console.log('OK9')">
+    <img id="lootblock0" src="/Images/loot_block0.png" onload="console.log('OK10')">
+    <img id="lootblock1" src="/Images/loot_block1.png" onload="console.log('OK11')">
+    <img id="lootblock2" src="/Images/loot_block2.png" onload="console.log('OK12')">
+    <img id="lootblock3" src="/Images/loot_block3.png" onload="console.log('OK13')">
+    <img id="lootblock4" src="/Images/loot_block4.png" onload="console.log('OK14')">
+    <img id="lootblock5" src="/Images/loot_block5.png" onload="console.log('OK15')">
+    <img id="lootblock6" src="/Images/loot_block6.png" onload="console.log('OK16')">
+    <img id="lootblock7" src="/Images/loot_block7.png" onload="console.log('OK17')">
+    <img id="ncoin0" src="/Images/ncoin0.png" onload="console.log('OK18')">
+    <img id="ncoin1" src="/Images/ncoin1.png" onload="console.log('OK19')">
+    <img id="ncoin2" src="/Images/ncoin2.png" onload="console.log('OK20')">
+    <img id="ncoin3" src="/Images/ncoin3.png" onload="console.log('OK21')">
+    <img id="rcoin0" src="/Images/rcoin0.png" onload="console.log('OK22')">
+    <img id="rcoin1" src="/Images/rcoin1.png" onload="console.log('OK23')">
+    <img id="rcoin2" src="/Images/rcoin2.png" onload="console.log('OK24')">
+    <img id="rcoin3" src="/Images/rcoin3.png" onload="console.log('OK25')">
+    <img id="rcoin4" src="/Images/rcoin4.png" onload="console.log('OK26')">
+    <img id="rcoin5" src="/Images/rcoin5.png" onload="console.log('OK27')">
+    <img id="rcoin6" src="/Images/rcoin6.png" onload="console.log('OK28')">
+    <img id="rcoin7" src="/Images/rcoin7.png" onload="console.log('OK29')">
+    <img id="blockw00" src="/Images/blockw00.png">
+    <img id="blockw01" src="/Images/blockw01.png">
+    <img id="blockw02" src="/Images/blockw02.png">
+    <img id="blockw03" src="/Images/blockw03.png">
+    <img id="blockw04" src="/Images/blockw04.png">
+    <img id="blockw05" src="/Images/blockw05.png">
+    <img id="blockw06" src="/Images/blockw06.png">
+    <img id="blockw07" src="/Images/blockw07.png">
+    <img id="blockw08" src="/Images/blockw08.png">
+    <img id="blockw09" src="/Images/blockw09.png">
+    <img id="blockw10" src="/Images/blockw10.png">
+    <img id="blockw11" src="/Images/blockw11.png">
+    <img id="mushroom" src="/Images/mushroom.png" onload="console.log('OK30')">
+    <img id="blockw12" src="/Images/blockw12.png" onload="console.log('OK31')">
+    <img id="BigMario0" src="/Images/BigMario0.png" onload="console.log('OK32')">
+    <img id="BigMario1" src="/Images/BigMario1.png" onload="console.log('OK33')">
+    <img id="BigMario2" src="/Images/BigMario2.png" onload="console.log('OK34')">
+    <img id="BlueShell0" src="/Images/BlueShell0.png" onload="console.log('OK35')">
+    <img id="BlueShell1" src="/Images/BlueShell1.png" onload="console.log('OK36')">
+    <img id="BlueShell2" src="/Images/BlueShell2.png" onload="console.log('OK37')">
+    <img id="BlueShell3" src="/Images/BlueShell3.png" onload="console.log('OK38')">
+    <img id="noimage" src="/Images/blck.png" onload="console.log('OK39')">
+    <img id="PSwitch0" src="/Images/PSwitch0.png" onload="console.log('OK49')">
+    <img id="PSwitch1" src="/Images/PSwitch1.png" onload="console.log('OK50')">
+    <img id="Gun0" src="/Images/Gun0.png" onload="console.log('OK55')">
+    <img id="Gun1" src="/Images/Gun1.png" onload="console.log('OK56')">
+    <img id="Gun2" src="/Images/Gun2.png" onload="console.log('OK57')">
+    <img id="Bullet" src="/Images/Bullet.png" onload="console.log('OK59')">
+    <img id="LiquidLava0" src="/Images/LiquidLava0.png" onload="console.log('OK59')">
+    <img id="LiquidWater" src="/Images/LiquidWater.png" onload="console.log('OK59')">
+    <img id="LiquidLava1" src="/Images/LiquidLava1.png" onload="console.log('OK59')">
+    <img id="LiquidLava2" src="/Images/LiquidLava2.png" onload="console.log('OK59')">
+    <img id="LiquidLava3" src="/Images/LiquidLava3.png" onload="console.log('OK59')">
+    <img id="LiquidLava4" src="/Images/LiquidLava4.png" onload="console.log('OK59')">
+    <img id="LiquidLava5" src="/Images/LiquidLava5.png" onload="console.log('OK59')">
+    <img id="LiquidLava6" src="/Images/LiquidLava6.png" onload="console.log('OK59')">
+    <img id="LiquidLava7" src="/Images/LiquidLava7.png" onload="console.log('OK59')">
+    <img id="LiquidLava8" src="/Images/LiquidLava8.png" onload="console.log('OK59')">
+    <img id="LiquidLava9" src="/Images/LiquidLava9.png" onload="console.log('OK59')">
+    <audio id="Jump" src="/Sounds/Jump.mp3" onload="console.log('OK51')"></audio>
+    <audio id="Explode" src="/Sounds/Explode.mp3" onload="console.log('OK58')"></audio>
+    <audio id="PSwitch" src="/Sounds/PSwitch.mp3" onload="console.log('OK52')"></audio>
+    <audio id="PSwitchTheme" src="/Sounds/PSwitchTheme.mp3" onload="console.log('OK53')"></audio>
+    <audio id="TimeEnd" src="/Sounds/TimeEnd.mp3" onload="console.log('OK54')"></audio>
+    <audio id="Coin" src="/Sounds/Coin.mp3" onload="console.log('OK41')"></audio>
+    <audio id="ToLow" src="/Sounds/ToLow.mp3" onload="console.log('OK42')"></audio>
+    <audio id="Mushroom" src="/Sounds/mushroom.mp3" onload="console.log('OK43')"></audio>
+    <audio id="Pickup" src="/Sounds/Pickup.mp3" onload="console.log('OK44')"></audio>
+    <audio id="JumpWater" src="/Sounds/JumpWater.mp3" onload="console.log('OK44')"></audio>
+    <audio id="PowFirst" src="/Sounds/PowFirst.mp3" onload="console.log('OK45')"></audio>
+    <audio id="PowSecond" src="/Sounds/PowSecond.mp3" onload="console.log('OK46')"></audio>
+    <audio id="Underwater" src="/Sounds/Underwater.mp3" onload="console.log('OK47')"></audio>
+    <audio id="Overworld" src="/Sounds/Overworld.mp3" onload="console.log('OK48')"></audio>
+    <script src="/Main.js"></script>
+    <script src="/Objects.js"></script>
+    <script src="/Exec.js"></script>
+</body>
+</html>
