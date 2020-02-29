@@ -13,7 +13,63 @@ let CameraX = Mario.x;
 let CameraY = Mario.y;
 let started = false;
 let ticked = false;
+let BGX = 0;
+let BGY = 0;
 let kmx = 0, kmy = 0;
+
+function DrawBackground(background, xb, yb = 0, scale = 1) {
+    for(let x = -640; x < 640 + xb / scale; x += background.width) {
+        for(let y = -360; y < 360 + yb / scale; y += background.height) {
+            ctx.drawImage(background, Math.floor(x + xb), Math.floor(y + yb), background.width, background.height);
+        }
+    }
+}
+
+let Vertex = {
+    Backgrounds: [],
+    CreateBackground: function(Background, ZCoor, xb = 0, yb = 0, sx = 0, sy = 0) {
+        this.Backgrounds[this.Backgrounds.length] = Background;
+        this.Backgrounds[this.Backgrounds.length] = ZCoor;
+        this.Backgrounds[this.Backgrounds.length] = xb;
+        this.Backgrounds[this.Backgrounds.length] = yb;
+        this.Backgrounds[this.Backgrounds.length] = sx;
+        this.Backgrounds[this.Backgrounds.length] = sy;
+        this.Backgrounds[this.Backgrounds.length] = 0;
+        this.Backgrounds[this.Backgrounds.length] = 0;
+    },
+    DrawRearBackgrounds: function() {
+        for(let i = 0; i < this.Backgrounds.length; i += 8) {
+            if(this.Backgrounds[i + 1] >= 0) {
+                DrawBackground(this.Backgrounds[i], this.Backgrounds[i + 2], this.Backgrounds[i + 3], 1 / (this.Backgrounds[i + 1] + 1));
+            }
+        }
+    },
+    DrawFrontBackgrounds: function() {
+        for(let i = 0; i < this.Backgrounds.length; i += 8) {
+            if(this.Backgrounds[i + 1] < 0) {
+                DrawBackground(this.Backgrounds[i], this.Backgrounds[i + 2], this.Backgrounds[i + 3], -this.Backgrounds[i + 1]);
+            }
+        }
+    },
+    CalcCoors: function() {
+        for(let i = 0; i < this.Backgrounds.length; i += 8) {  
+            this.Backgrounds[i + 6] += this.Backgrounds[i + 4];
+            this.Backgrounds[i + 7] += this.Backgrounds[i + 5];
+            if(this.Backgrounds[i + 1] > 0) {
+                this.Backgrounds[i + 2] = CameraX * (1 / (this.Backgrounds[i + 1] + 1));
+                this.Backgrounds[i + 3] = CameraY * (1 / (this.Backgrounds[i + 1] + 1));
+            } else {
+                this.Backgrounds[i + 2] = CameraX * -this.Backgrounds[i + 1];
+                this.Backgrounds[i + 3] = CameraY * -this.Backgrounds[i + 1];
+            }
+            this.Backgrounds[i + 2] += this.Backgrounds[i + 6];
+            this.Backgrounds[i + 3] += this.Backgrounds[i + 7];
+        }
+    }
+};
+
+Vertex.CreateBackground(Fortress, 5);
+Vertex.CreateBackground(Air, 3, 0, 100, 0.1);
 
 function SetBlock(str) {
     Current_Type = 0;
@@ -298,6 +354,10 @@ function SetPickable(str) {
             Current_Block = [LiquidLava0, "LiquidLava", "1, 1"];
             break;
         };
+        case "BlueCoopa": {
+            Current_Block = [blue_coopa0, "BlueCoopa", ""];
+            break;
+        };
     };
 }
 
@@ -318,8 +378,6 @@ function Draw() {
         }
     }
     DrawText(8, 8, 'Room #O.O\nTest Room');
-    CameraX = Math.floor(Mario.x) - 320;
-    CameraY = Math.floor(Mario.y) - 180;
     if(!started) {
         ctx.fillStyle = "#ff005550";
         ctx.fillRect((mx - mx % 16) / 16 * 16, (my - my % 16) / 16 * 16, 16, 16);
@@ -419,7 +477,12 @@ function Tick() {
         CalcPhysics();
     }
     let oldCameraX = CameraX, oldCameraY = CameraY;
+    CameraX = Math.floor(Mario.x) - 320;
+    CameraY = Math.floor(Mario.y) - 180;
+    Vertex.CalcCoors();
+    Vertex.DrawRearBackgrounds();
     Draw();
+    Vertex.DrawFrontBackgrounds();
     let x = Math.floor(oldCameraX - CameraX);
     let y = Math.floor(oldCameraY - CameraY);
     ctx.translate(x, y);
